@@ -12,4 +12,9 @@ d. run command ->../node_modules/.bin/sequelize db:migrate
 
 a.npm start/npm run dev
 
+3.To start the frontend application,follow these steps:
+a.go to directory ->chat-app/chat-frontend
+b.npm install
+c.npm start
+
 //////////////////////////////////////////////////////////////
