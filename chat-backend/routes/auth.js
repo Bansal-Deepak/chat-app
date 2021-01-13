@@ -30,6 +30,7 @@ router.post(
           }),
         });
       }
+      // throw new Error();
       let result = await User.findOne({ where: { email } });
       if (!result) {
         return res.status(404).send({

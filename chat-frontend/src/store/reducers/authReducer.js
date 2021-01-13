@@ -7,6 +7,7 @@ let initialState = {
 };
 
 let authReducer = (state = initialState, action) => {
+  console.log("action>", action);
   switch (action.type) {
     case LOGIN:
       return {
@@ -28,7 +29,7 @@ let authReducer = (state = initialState, action) => {
         user: null,
         token: null,
         isLoggedIn: false,
-        error: action.paylod,
+        error: action.payload,
       };
     default:
       return state;
