@@ -37,7 +37,7 @@ router.post(
         });
       }
       console.log("result.password", result.password);
-      let final = await bcrypt.compare(result.password, password);
+      let final = await bcrypt.compare(password, result.password);
       console.log(final);
       if (!final) {
         return res.status(400).send({
@@ -45,8 +45,9 @@ router.post(
         });
       }
       let token = jwt.sign({ id: result.id }, APP_KEY);
-      return res.status(200).send({ token });
+      return res.status(200).send({ token, user: result });
     } catch (ex) {
+      console.log(ex);
       return res.status(500).send({
         errors: [{ message: "Something went wrong" }],
       });
@@ -81,11 +82,6 @@ router.post(
       .isEmpty()
       .trim()
       .withMessage("Please provide a value for gender"),
-    body("avatar")
-      .not()
-      .isEmpty()
-      .trim()
-      .withMessage("Please provide a value for avatar"),
   ],
   async (req, res) => {
     try {
@@ -120,7 +116,7 @@ router.post(
       });
       console.log("hh");
       let token = jwt.sign({ id: newuser.id }, APP_KEY, { expiresIn: 86400 });
-      return res.status(200).send({ token });
+      return res.status(200).send({ token, user: newuser });
     } catch (ex) {
       console.log(ex);
       return res.status(500).send({

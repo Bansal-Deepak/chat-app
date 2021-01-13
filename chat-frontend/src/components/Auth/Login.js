@@ -1,8 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 
 import LoginImage from "../../../src/assets/images/Login.svg";
 import "./Auth.css";
-let Login = () => {
+import { Link } from "react-router-dom";
+import axios from "axios";
+// import API from "../../services/api";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/actions/authActions";
+let Login = (props) => {
+  const dispatch = useDispatch();
+  let [logincreds, setLogincreds] = useState({
+    email: "",
+    password: "",
+  });
+  let { email, password } = logincreds;
+  let submitForm = async (e) => {
+    e.preventDefault();
+    // let config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
+    // await axios.post(`'http://localhost:5000/login`, logincreds, config);
+    // // await API.post(`/login`, logincreds);
+    dispatch(login(logincreds));
+    setLogincreds({
+      email: "",
+      password: "",
+    });
+    props.history.push("/");
+    //this is provided by Router .Router will provide history via props to all the
+    // paths inside Router.you can also do this inside authActions.js by passing
+    //history as parameter
+  };
+  let changeValue = (e) => {
+    e.preventDefault();
+    setLogincreds({
+      ...logincreds,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <div id="auth-container">
       <div id="auth-card">
@@ -12,17 +49,31 @@ let Login = () => {
           </div>
           <div id="form-section">
             <h2>Welcome Back</h2>
-            <form>
+            <form onSubmit={submitForm}>
               <div>
-                <input className="input-field mb-1" placeholder="Email" />
+                <input
+                  className="input-field mb-1"
+                  placeholder="Email"
+                  type="email"
+                  value={email}
+                  name="email"
+                  onChange={changeValue}
+                />
               </div>
               <div>
-                <input className="input-field mb-2" placeholder="Password" />
+                <input
+                  className="input-field mb-2"
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  name="password"
+                  onChange={changeValue}
+                />
               </div>
               <button type="submit">LOGIN</button>
             </form>
             <p style={{ textAlign: "center" }}>
-              Dont have an account ? Register{" "}
+              Dont have an account ? <Link to="/register">Register</Link>{" "}
             </p>
           </div>
         </div>
