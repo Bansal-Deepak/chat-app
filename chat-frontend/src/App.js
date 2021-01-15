@@ -18,7 +18,7 @@ function App() {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             {/* <Route exact path="/" component={Chat} /> */}
-            <ProtectedRoute exact path="/" component={Chat} />
+            <Route exact path="/" component={Chat} />
             {/* <Route
             render={() => {
               <h2>404 Page Not Found</h2>;

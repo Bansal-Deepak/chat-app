@@ -1,7 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 function Chat() {
-  let loggedUser = useSelector((state) => state.authReducer.user);
+  let loggedUser = useSelector((state) => {
+    console.log("chatstate", state);
+    return state.authReducer.user;
+  });
   //useSelector hook is used for getting global state variables
   return (
     <div>

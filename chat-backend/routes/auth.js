@@ -46,6 +46,8 @@ router.post(
         });
       }
       let token = jwt.sign({ id: result.id }, APP_KEY);
+      delete result.password;
+      console.log("user>,", result);
       return res.status(200).send({ token, user: result });
     } catch (ex) {
       console.log(ex);
@@ -117,6 +119,7 @@ router.post(
       });
       console.log("hh");
       let token = jwt.sign({ id: newuser.id }, APP_KEY, { expiresIn: 86400 });
+      delete newuser.password;
       return res.status(200).send({ token, user: newuser });
     } catch (ex) {
       console.log(ex);

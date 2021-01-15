@@ -13,6 +13,9 @@ let Login = (props) => {
     console.log("state", state);
     return state.authReducer.error;
   });
+  let userValue = useSelector((state) => {
+    return state.authReducer.user;
+  });
   const dispatch = useDispatch();
   let [logincreds, setLogincreds] = useState({
     email: "",
@@ -33,10 +36,11 @@ let Login = (props) => {
       email: "",
       password: "",
     });
-    props.history.push("/");
+    // props.history.push("/");
+    console.log("user", userValue);
     //this is provided by Router .Router will provide history via props to all the
     // paths inside Router.you can also do this inside authActions.js by passing
-    //history as parameter
+    // history as parameter
   };
   let changeValue = (e) => {
     e.preventDefault();
